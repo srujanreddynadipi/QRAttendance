@@ -1,0 +1,86 @@
+{% load  static%}
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<title>Voidmain</title>
+<link rel="stylesheet" type="text/css" href="{% static 'style/style.css'%}" title="style" />
+
+    <style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+
+</head>
+<body>
+	<div id="main">
+		<div id="header">
+			<div id="logo">
+				<div id="logo_text">
+					<!-- class="logo_colour", allows you to change the colour of the text -->
+					<h3>
+						<a href="#"><font color="white">GPS Enabled Academic Monitoring System</font></a>
+					</h3>
+					<br/><br/>
+				</div>
+			</div>
+			<div id="menubar">
+				<ul id="menu">
+
+                        <li><a href="/facultyregistration">Add Faculty</a></li>
+                        <li><a href="/getfacultys">Faculties</a></li>
+                        <li><a href="/addquestion">Add Question</a>
+                        <li><a href="/getquestions">View Questions</a></li>
+                        <li><a href="/getstudents">View Students</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                    
+				</ul>
+			</div>
+		</div>
+		<div id="content_header"></div>
+		<div id="site_content">
+
+            <div id="content">
+
+				<h1>Welcome to  <strong>{{request.session.username}}</strong>{{form.non_field_errors}}</h1>
+
+                <h1><strong>{{message}}</strong></h1>
+
+                <table id="customers">
+                  <tr>
+                      <th>Question</th>
+                      <th>Delete</th>
+                  </tr>
+                    {% for question in questions %}
+                        <tr>
+                            <td>{{ question.question }}</td>
+                            <td><a href="/deletequestion?questionid={{ question.id }}">delete</a></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+            </div>
+        </div>
+	</div>
+</body>
+</html>

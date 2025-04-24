@@ -1,0 +1,105 @@
+{% load  static%}
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<title>Voidmain</title>
+<link rel="stylesheet" type="text/css" href="{% static 'style/style.css'%}" title="style" />
+</head>
+
+<body>
+	<div id="main">
+		<div id="header">
+			<div id="logo">
+				<div id="logo_text">
+					<!-- class="logo_colour", allows you to change the colour of the text -->
+					<h3>
+						<a href="#"><font color="white">Smart Attendance System using QR CODE</font></a>
+					</h3>
+					<br/><br/>
+				</div>
+			</div>
+			<div id="menubar">
+				<ul id="menu">
+                    <li><a href="/generateqr">Generate QR</a></li>
+                    <li><a href="/viewattendance">View Attendance</a></li>
+                    <li><a href="/getfeedback?fid{{ request.session.username }}">View My Feedback</a></li>
+                    <li><a href="/logout">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="content_header"></div>
+		<div id="site_content">
+			<div id="content">
+
+				<h1>{{message}}</h1>
+
+				<form name="form" action="/generateqraction/">
+					{% csrf_token %}
+					<div class="form_settings">
+
+                        <p>
+							<span>Department:</span>
+                            <select name="department" required>
+                                    <option value="">--select--</option>
+                                    <option value="cse">cse</option>
+                                    <option value="it">it</option>
+                                    <option value="ece">ece</option>
+                                    <option value="eee">eee</option>
+                                    <option value="civil">civil</option>
+                                    <option value="mech">mech</option>
+                            </select>
+						</p>
+
+                        <p>
+                            <span>Year:</span>
+							<select name="year" required>
+                                    <option value="">--select--</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                            </select>
+						</p>
+
+                        <p>
+                            <span>Semester:</span>
+							<select name="sem" required>
+                                    <option value="">--select--</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                            </select>
+						</p>
+
+                        <p>
+							<span>Section:</span>
+                            <select name="section" required>
+                                    <option value="">--select--</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                            </select>
+						</p>
+
+                        <p>
+							<span>Select Subject:</span>
+                            <select name="subject" required>
+                                    <option value="">--select--</option>
+                                    <option value="java">java</option>
+                                    <option value="python">python</option>
+                            </select>
+						</p>
+
+						<p style="padding-top: 15px">
+							<span>&nbsp;</span><input class="submit" type="submit"
+								name="contact_submitted" value="Generate" />
+						</p>
+
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

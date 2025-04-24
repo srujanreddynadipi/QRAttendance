@@ -1,0 +1,86 @@
+{% load  static%}
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<title>Voidmain</title>
+<link rel="stylesheet" type="text/css" href="{% static 'style/style.css'%}" title="style" />
+</head>
+
+<body>
+	<div id="main">
+		<div id="header">
+			<div id="logo">
+				<div id="logo_text">
+					<!-- class="logo_colour", allows you to change the colour of the text -->
+					<h3>
+						<a href="#"><font color="white">Smart Attendance System using QR CODE</font></a>
+					</h3>
+					<br/><br/>
+				</div>
+			</div>
+			<div id="menubar">
+				<ul id="menu">
+                    <li><a href="/generateqr">Generate QR</a></li>
+                    <li><a href="/viewattendance">View Attendance</a></li>
+                    <li><a href="/getfeedback?fid{{ request.session.username }}">View My Feedback</a></li>
+                    <li><a href="/logout">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="content_header"></div>
+		<div id="site_content">
+			<div id="content">
+
+				<h1>{{message}}</h1>
+
+				<form name="form" action="/viewattendanceaction/">
+					{% csrf_token %}
+					<div class="form_settings">
+
+                        <p>
+							<span>Roll Number :</span><input class="contact" type="text" name="username" value="" required/>
+						</p>
+
+                        <p>
+							<span>Select Subject:</span>
+                            <select name="subject" required>
+                                    <option value="">--select--</option>
+                                    <option value="java">java</option>
+                                    <option value="python">python</option>
+                            </select>
+						</p>
+
+						<p style="padding-top: 15px">
+							<span>&nbsp;</span><input class="submit" type="submit"
+								name="contact_submitted" value="View Attendance" />
+						</p>
+
+					</div>
+				</form>
+
+                <br/><hr/>
+
+                <table id="customers">
+                  <tr>
+                      <td align="center" colspan="3">Total Classes Attended : {{ count }}</td>
+                  </tr>
+                  <tr>
+                      <th>Roll Number</th>
+                      <th>Subject</th>
+                      <th>Date</th>
+                  </tr>
+                    {% for attendance in attendances %}
+                        <tr>
+                            <td>{{ attendance.username }}</td>
+                            <td>{{ attendance.subject }}</td>
+                            <td>{{ attendance.date }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

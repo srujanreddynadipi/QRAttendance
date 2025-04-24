@@ -1,0 +1,60 @@
+{% load  static%}
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<title>Voidmain</title>
+<link rel="stylesheet" type="text/css" href="{% static 'style/style.css'%}" title="style" />
+</head>
+
+<body>
+	<div id="main">
+		<div id="header">
+			<div id="logo">
+				<div id="logo_text">
+					<!-- class="logo_colour", allows you to change the colour of the text -->
+					<h3>
+						<a href="#"><font color="white">GPS Enabled Academic Monitoring System</font></a>
+					</h3>
+					<br/><br/>
+				</div>
+			</div>
+			<div id="menubar">
+				<ul id="menu">
+
+					    <li><a href="/facultyregistration">Add Faculty</a></li>
+                        <li><a href="/getfacultys">Faculties</a></li>
+                        <li><a href="/addquestion">Add Question</a>
+                        <li><a href="/getquestions">View Questions</a></li>
+                        <li><a href="/getstudents">View Students</a></li>
+                        <li><a href="/logout">Logout</a></li>
+
+				</ul>
+			</div>
+		</div>
+		<div id="content_header"></div>
+		<div id="site_content">
+			<div id="content">
+
+				<h1>{{message}}</h1>
+
+				<form name="form" action="/addquestionaction/">
+					{% csrf_token %}
+					<div class="form_settings">
+						<p>
+							<span>Question :</span><input class="contact" type="text" name="question" value="" required/>
+						</p>
+
+						<p style="padding-top: 15px">
+							<span>&nbsp;</span><input class="submit" type="submit"
+								name="contact_submitted" value="Post" />
+						</p>
+
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>
