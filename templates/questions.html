@@ -1,76 +1,210 @@
 {% load  static%}
 <!DOCTYPE HTML>
 <html>
-
 <head>
-<title>Voidmain</title>
-<link rel="stylesheet" type="text/css" href="{% static 'style/style.css'%}" title="style" />
-
+    <title>Smart Attendance System</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style/style.css'%}" title="style" />
     <style>
-#customers {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+      :root {
+        --primary-gradient: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+        --hover-gradient: linear-gradient(135deg, #6dd5ed 0%, #2193b0 100%);
+        --background-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      }
 
-#customers td, #customers th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--background-gradient);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+      }
 
-#customers tr:nth-child(even){background-color: #f2f2f2;}
+      #main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-#customers tr:hover {background-color: #ddd;}
+      #header {
+        background: var(--primary-gradient);
+        border-radius: 15px;
+        padding: 10px;
+        margin: 30px auto;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        max-width: 1000px;
+        width: 90%;
+      }
 
-#customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
-  color: white;
-}
-</style>
+      #logo_text h3 a {
+        text-decoration: none;
+        color: white;
+        font-size: 24px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+      }
 
+      #logo_text h3 a:hover {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      }
+
+      #logo {
+        height: 46px;
+        width: 90%;
+      }
+
+      #menubar {
+        margin-top: -13px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 10px 20px;
+        backdrop-filter: blur(5px);
+        width: 90%;
+      }
+
+      #menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 15px;
+        justify-content: flex-start;
+      }
+
+      #menu li a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        background: none;
+      }
+
+      #menu li a:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+      }
+
+      #content {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.5s ease-out;
+        max-width: 800px;
+        width: 100%;
+      }
+
+      #customers {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      }
+
+      #customers th {
+        background: var(--primary-gradient);
+        color: white;
+        padding: 15px;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        border: none;
+      }
+
+      #customers td {
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        transition: all 0.3s ease;
+      }
+
+      #customers tr:hover td {
+        background: #f8f9fa;
+        transform: scale(1.01);
+      }
+
+      #customers tr:last-child td {
+        border-bottom: none;
+      }
+
+      #customers a {
+        text-decoration: none;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        background: var(--primary-gradient);
+        color: white;
+      }
+
+      #customers a:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        opacity: 0.9;
+      }
+
+      #site_content {
+        background: none;
+        margin: 1%;
+        padding: 2%;
+        width: 90%;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
 </head>
 <body>
-	<div id="main">
-		<div id="header">
-			<div id="logo">
-				<div id="logo_text">
-					<!-- class="logo_colour", allows you to change the colour of the text -->
-					<h3>
-						<a href="#"><font color="white">GPS Enabled Academic Monitoring System</font></a>
-					</h3>
-					<br/><br/>
-				</div>
-			</div>
-			<div id="menubar">
-				<ul id="menu">
-
-                        <li><a href="/facultyregistration">Add Faculty</a></li>
-                        <li><a href="/getfacultys">Faculties</a></li>
-                        <li><a href="/addquestion">Add Question</a>
-                        <li><a href="/getquestions">View Questions</a></li>
-                        <li><a href="/getstudents">View Students</a></li>
-                        <li><a href="/logout">Logout</a></li>
-                    
-				</ul>
-			</div>
-		</div>
-		<div id="content_header"></div>
-		<div id="site_content">
-
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <div id="logo_text">
+                    <h3>
+                        <a href="#">Smart Attendance System using QR CODE</a>
+                    </h3>
+                </div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <li><a href="/facultyregistration">Add Faculty</a></li>
+                    <li><a href="/getfacultys">Faculties</a></li>
+                    <li><a href="/addquestion">Add Question</a></li>
+                    <li><a href="/getquestions">View Questions</a></li>
+                    <li><a href="/getstudents">View Students</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
             <div id="content">
-
-				<h1>Welcome to  <strong>{{request.session.username}}</strong>{{form.non_field_errors}}</h1>
-
+                <h1>Welcome to <strong>{{request.session.username}}</strong></h1>
                 <h1><strong>{{message}}</strong></h1>
 
                 <table id="customers">
-                  <tr>
-                      <th>Question</th>
-                      <th>Delete</th>
-                  </tr>
+                    <tr>
+                        <th>Question</th>
+                        <th>Delete</th>
+                    </tr>
                     {% for question in questions %}
                         <tr>
                             <td>{{ question.question }}</td>
@@ -78,9 +212,8 @@
                         </tr>
                     {% endfor %}
                 </table>
-
             </div>
         </div>
-	</div>
+    </div>
 </body>
 </html>

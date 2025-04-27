@@ -1,45 +1,203 @@
 {% load  static%}
 <!DOCTYPE HTML>
 <html>
-
 <head>
-<title>Voidmain</title>
-<link rel="stylesheet" type="text/css" href="{% static 'style/style.css'%}" title="style" />
+    <title>Smart Attendance System</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style/style.css'%}" title="style" />
+    <style>
+      :root {
+        --primary-gradient: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+        --hover-gradient: linear-gradient(135deg, #6dd5ed 0%, #2193b0 100%);
+        --background-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--background-gradient);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+      }
+
+      #main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #header {
+        background: var(--primary-gradient);
+        border-radius: 15px;
+        padding: 10px;
+        margin: 30px auto;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        max-width: 1000px;
+        width: 90%;
+      }
+
+      #logo_text h3 a {
+        text-decoration: none;
+        color: white;
+        font-size: 24px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+      }
+
+      #menubar {
+        margin-top: -13px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 10px 20px;
+        backdrop-filter: blur(5px);
+        width: 90%;
+      }
+
+      #menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 15px;
+        justify-content: flex-start;
+      }
+
+      #menu li a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        background: none;
+      }
+
+      #menu li a:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+      }
+
+      #content {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.5s ease-out;
+        max-width: 800px;
+        width: 100%;
+      }
+
+      .form_settings {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .form_settings p {
+        margin: 20px 0;
+        display: flex;
+        align-items: center;
+      }
+
+      .form_settings span {
+        width: 150px;
+        color: #1e3c72;
+        font-weight: 500;
+      }
+
+      .form_settings select {
+        flex: 1;
+        padding: 12px;
+        border: 2px solid #e1e5ea;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+      }
+
+      .form_settings select:focus {
+        border-color: #1e3c72;
+        box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+        outline: none;
+      }
+
+      .submit {
+        background: var(--primary-gradient);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 25px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      h1 {
+        color: #1e3c72;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 28px;
+      }
+
+      #site_content {
+        background: none;
+        margin: 1%;
+        padding: 2%;
+        width: 90%;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
 </head>
 
 <body>
-	<div id="main">
-		<div id="header">
-			<div id="logo">
-				<div id="logo_text">
-					<!-- class="logo_colour", allows you to change the colour of the text -->
-					<h3>
-						<a href="#"><font color="white">Smart Attendance System using QR CODE</font></a>
-					</h3>
-					<br/><br/>
-				</div>
-			</div>
-			<div id="menubar">
-				<ul id="menu">
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <div id="logo_text">
+                    <h3>
+                        <a href="#">Smart Attendance System using QR CODE</a>
+                    </h3>
+                </div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
                     <li><a href="/generateqr">Generate QR</a></li>
                     <li><a href="/viewattendance">View Attendance</a></li>
                     <li><a href="/getfeedback?fid{{ request.session.username }}">View My Feedback</a></li>
                     <li><a href="/logout">Logout</a></li>
-				</ul>
-			</div>
-		</div>
-		<div id="content_header"></div>
-		<div id="site_content">
-			<div id="content">
-
-				<h1>{{message}}</h1>
-
-				<form name="form" action="/generateqraction/">
-					{% csrf_token %}
-					<div class="form_settings">
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
+            <div id="content">
+                <h1>{{message}}</h1>
+                <form name="form" action="/generateqraction/">
+                    {% csrf_token %}
+                    <div class="form_settings">
 
                         <p>
-							<span>Department:</span>
+                            <span>Department:</span>
                             <select name="department" required>
                                     <option value="">--select--</option>
                                     <option value="cse">cse</option>
@@ -49,57 +207,57 @@
                                     <option value="civil">civil</option>
                                     <option value="mech">mech</option>
                             </select>
-						</p>
+                        </p>
 
                         <p>
                             <span>Year:</span>
-							<select name="year" required>
+                            <select name="year" required>
                                     <option value="">--select--</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
                             </select>
-						</p>
+                        </p>
 
                         <p>
                             <span>Semester:</span>
-							<select name="sem" required>
+                            <select name="sem" required>
                                     <option value="">--select--</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                             </select>
-						</p>
+                        </p>
 
                         <p>
-							<span>Section:</span>
+                            <span>Section:</span>
                             <select name="section" required>
                                     <option value="">--select--</option>
                                     <option value="A">A</option>
                                     <option value="B">B</option>
                                     <option value="C">C</option>
                             </select>
-						</p>
+                        </p>
 
                         <p>
-							<span>Select Subject:</span>
+                            <span>Select Subject:</span>
                             <select name="subject" required>
                                     <option value="">--select--</option>
                                     <option value="java">java</option>
                                     <option value="python">python</option>
                             </select>
-						</p>
+                        </p>
 
-						<p style="padding-top: 15px">
-							<span>&nbsp;</span><input class="submit" type="submit"
-								name="contact_submitted" value="Generate" />
-						</p>
+                        <p style="padding-top: 15px">
+                            <span>&nbsp;</span><input class="submit" type="submit"
+                                name="contact_submitted" value="Generate" />
+                        </p>
 
-					</div>
-				</form>
+                    </div>
+                </form>
 
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

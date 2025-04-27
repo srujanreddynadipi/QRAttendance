@@ -1,35 +1,176 @@
 {% load  static%}
 <!DOCTYPE HTML>
 <html>
-
 <head>
-<title>Voidmain</title>
-<link rel="stylesheet" type="text/css" href="{% static 'style/style.css'%}" title="style" />
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <title>Smart Attendance System</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style/style.css'%}" title="style" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+      :root {
+        --primary-gradient: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+        --hover-gradient: linear-gradient(135deg, #6dd5ed 0%, #2193b0 100%);
+        --background-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      }
 
-<script type="text/javascript">
-// Load google charts
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(drawChart);
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--background-gradient);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+      }
 
-// Draw the chart and set the chart values
-function drawChart() {
-  var data = google.visualization.arrayToDataTable([
-  ['Feedback', 'Score'],
-  ['Good',{{ good }}],
-  ['Average',{{ average }}],
-  ['Bad',{{ bad }}]
-]);
+      #main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-  // Optional; add a title and set the width and height of the chart
-  var options = {'title':'{{ faculty }} Feedback', 'width':550, 'height':400};
+      #header {
+        background: var(--primary-gradient);
+        border-radius: 15px;
+        padding: 10px;
+        margin: 30px auto;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        max-width: 1000px;
+        width: 90%;
+      }
 
-  // Display the chart inside the <div> element with id="piechart"
-  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-  chart.draw(data, options);
-}
-</script>
+      #logo_text h3 a {
+        text-decoration: none;
+        color: white;
+        font-size: 24px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+      }
 
+      #logo_text h3 a:hover {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      }
+
+      #logo {
+        height: 46px;
+        width: 90%;
+      }
+
+      #menubar {
+        margin-top: -13px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 10px 20px;
+        backdrop-filter: blur(5px);
+        width: 90%;
+      }
+
+      #menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        gap: 15px;
+        justify-content: flex-start;
+      }
+
+      #menu li a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        background: none;
+      }
+
+      #menu li a:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+      }
+
+      #content {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.5s ease-out;
+        max-width: 800px;
+        width: 100%;
+      }
+
+      #piechart {
+        margin: 20px auto;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .form_settings {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .form_settings p {
+        margin: 20px 0;
+        display: flex;
+        align-items: center;
+      }
+
+      .form_settings span {
+        width: 150px;
+        color: #1e3c72;
+        font-weight: 500;
+      }
+
+      .form_settings select {
+        flex: 1;
+        padding: 12px;
+        border: 2px solid #e1e5ea;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+      }
+
+      .form_settings select:focus {
+        border-color: #1e3c72;
+        box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+        outline: none;
+      }
+
+      .submit {
+        background: var(--primary-gradient);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 25px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
 </head>
 <body>
 	<div id="main">
