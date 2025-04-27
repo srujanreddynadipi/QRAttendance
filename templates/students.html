@@ -1,107 +1,242 @@
 {% load  static%}
 <!DOCTYPE HTML>
 <html>
-
 <head>
-<title>Voidmain</title>
-<link rel="stylesheet" type="text/css" href="{% static 'style/style.css'%}" title="style" />
-
+    <title>Smart Attendance System</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'style/style.css'%}" title="style" />
     <style>
-#customers {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
+        :root {
+            --primary-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            --hover-gradient: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+        }
 
-#customers td, #customers th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            margin: 0;
+            padding: 0;
+        }
 
-#customers tr:nth-child(even){background-color: #f2f2f2;}
+        #main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-#customers tr:hover {background-color: #ddd;}
+        #header {
+            background: var(--primary-gradient);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
 
-#customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
-  color: white;
-}
-</style>
+        #logo_text h3 a {
+            text-decoration: none;
+            color: white;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
 
+        #logo_text h3 a:hover {
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        #menu {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        #menu li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background: rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        #menu li a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        #content h1 {
+            color: #1e3c72;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        #customers {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        #customers th {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        #customers td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s ease;
+        }
+
+        #customers tr:hover td {
+            background: #f8f9fa;
+            transform: scale(1.01);
+        }
+
+        #customers tr:last-child td {
+            border-bottom: none;
+        }
+
+        #customers a {
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        #customers a[href*="activate"] {
+            background: #4CAF50;
+            color: white;
+        }
+
+        #customers a[href*="deactivate"] {
+            background: #ff9800;
+            color: white;
+        }
+
+        #customers a[href*="delete"] {
+            background: #f44336;
+            color: white;
+        }
+
+        #customers a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            opacity: 0.9;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #content {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: #e8f5e9;
+            color: #4CAF50;
+        }
+
+        .status-inactive {
+            background: #ffebee;
+            color: #f44336;
+        }
+    </style>
 </head>
 <body>
-	<div id="main">
-		<div id="header">
-			<div id="logo">
-				<div id="logo_text">
-					<!-- class="logo_colour", allows you to change the colour of the text -->
-					<h3>
-						<a href="#"><font color="white">Smart Attendance System using QR CODE</font></a>
-					</h3>
-					<br/><br/>
-				</div>
-			</div>
-			<div id="menubar">
-				<ul id="menu">
-                        <li><a href="/facultyregistration">Add Faculty</a></li>
-                        <li><a href="/getfacultys">Faculties</a></li>
-                        <li><a href="/addquestion">Add Question</a>
-                        <li><a href="/getquestions">View Questions</a></li>
-                        <li><a href="/getstudents">View Students</a></li>
-                        <li><a href="/logout">Logout</a></li>
-				</ul>
-			</div>
-		</div>
-		<div id="content_header"></div>
-		<div id="site_content">
-
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <div id="logo_text">
+                    <h3>
+                        <a href="#">Smart Attendance System using QR CODE</a>
+                    </h3>
+                </div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <li><a href="/facultyregistration">Add Faculty</a></li>
+                    <li><a href="/getfacultys">Faculties</a></li>
+                    <li><a href="/addquestion">Add Question</a></li>
+                    <li><a href="/getquestions">View Questions</a></li>
+                    <li><a href="/getstudents">View Students</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="site_content">
             <div id="content">
-
-				<h1>Welcome to  <strong>{{request.session.username}}</strong>{{form.non_field_errors}}</h1>
-
-                <h1><strong>{{message}}</strong></h1>
+                <h1>Welcome, <strong>{{request.session.username}}</strong></h1>
+                {% if message %}
+                    <h1><strong>{{message}}</strong></h1>
+                {% endif %}
 
                 <table id="customers">
-                  <tr>
-                      <th>Roll Number</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Password</th>
-                      <th>Mobile</th>
-                      <th>Department>
-                      <th>Year</th>
-                      <th>Section</th>
-                      <th>Status</th>
-                      <th>Update Status</th>
-                      <th>Delete</th>
-                  </tr>
+                    <tr>
+                        <th>Roll Number</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Mobile</th>
+                        <th>Department</th>
+                        <th>Year</th>
+                        <th>Section</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                        <th></th>
+                    </tr>
                     {% for user in students %}
                         <tr>
                             <td>{{ user.username }}</td>
                             <td>{{ user.name }}</td>
-                            <td>{{ user.password }}</td>
                             <td>{{ user.email }}</td>
+                            <td>{{ user.password }}</td>
                             <td>{{ user.mobile }}</td>
                             <td>{{ user.department }}</td>
                             <td>{{ user.year }}</td>
                             <td>{{ user.section }}</td>
-                            <td>{{ user.status }}</td>
-                            {% if user.status in "no" %}
-                                <td><a href="/activateAccount?username={{ user.id }}&status=yes">activate</a></td>
-                            {% endif %}
-                            {% if user.status in "yes" %}
-                                <td><a href="/activateAccount?username={{ user.id }}&status=no">deactivate</a></td>
-                            {% endif %}
-                            <td><a href="/deletestudent?studentid={{ user.id }}">delete</a></td>
+                            <td>
+                                <span class="status-badge {% if user.status == 'yes' %}status-active{% else %}status-inactive{% endif %}">
+                                    {{ user.status|yesno:"Active,Inactive" }}
+                                </span>
+                            </td>
+                            <td>
+                                {% if user.status in "no" %}
+                                    <a href="/activateAccount?username={{ user.id }}&status=yes">Activate</a>
+                                {% endif %}
+                                {% if user.status in "yes" %}
+                                    <a href="/activateAccount?username={{ user.id }}&status=no">Deactivate</a>
+                                {% endif %}
+                            </td>
+                            <td><a href="/deletestudent?studentid={{ user.id }}">Delete</a></td>
                         </tr>
                     {% endfor %}
                 </table>
-
             </div>
         </div>
-	</div>
+    </div>
 </body>
 </html>
