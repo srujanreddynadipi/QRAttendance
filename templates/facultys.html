@@ -101,21 +101,12 @@
             animation: fadeIn 0.5s ease-out;
             max-width: 800px;
             width: 100%;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            overflow-x: auto; /* Add horizontal scroll */
         }
 
         #customers {
             width: 100%;
+            min-width: 1000px; /* Minimum width to ensure table doesn't get too compressed */
             border-collapse: separate;
             border-spacing: 0;
             background: white;
