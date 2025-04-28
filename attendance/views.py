@@ -405,35 +405,43 @@ def viewattendanceaction(request):
 
 #==============================================================================================
 def addQuestion(request):
-    objects = []
-    result = firebase.get('/question/', '')
-    if result is not None:
-        for id, obj in result.items():
-            object = FireBaseObject()
-            object.id = id
-            for param, value in obj.items():
-                if param in "question":
-                    object.question = value
-                if param in "qid":
-                    object.qid = value
-            objects.append(object)
+    if request.method == 'POST':  # Check if request method is POST
+        question_text = request.POST.get('question')  # Use POST instead of GET and use get() method
+        if question_text:  # Check if question exists
+            objects = []
+            result = firebase.get('/question/', '')
+            if result is not None:
+                for id, obj in result.items():
+                    object = FireBaseObject()
+                    object.id = id
+                    for param, value in obj.items():
+                        if param in "question":
+                            object.question = value
+                        if param in "qid":
+                            object.qid = value
+                    objects.append(object)
 
-    data = {"qid": str(len(objects) + 1), "question": request.GET['question']}
-    result = postObject(data, "question")
-    print(result)
+            data = {"qid": str(len(objects) + 1), "question": question_text}
+            result = postObject(data, "question")
+            print(result)
 
-    objects = []
-    result = firebase.get('/question/', '')
-    if result is not None:
-        for id, obj in result.items():
-            object = FireBaseObject()
-            object.id = id
-            for param, value in obj.items():
-                if param in "question":
-                    object.question = value
-            objects.append(object)
+            # Refresh the questions list
+            objects = []
+            result = firebase.get('/question/', '')
+            if result is not None:
+                for id, obj in result.items():
+                    object = FireBaseObject()
+                    object.id = id
+                    for param, value in obj.items():
+                        if param in "question":
+                            object.question = value
+                    objects.append(object)
 
-    return render(request, "questions.html", {"questions": objects})
+            return render(request, "questions.html", {"questions": objects, "message": "Question added successfully"})
+        else:
+            return render(request, "addquestion.html", {"message": "Question cannot be empty"})
+    
+    return render(request, "addquestion.html")  # For GET requests, just show the form
 
 def getquestions(request):
     objects = []
