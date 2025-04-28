@@ -350,31 +350,44 @@ def logout(request):
 def generateqr(request):
     return render(request, "generateqr.html")
 
+import os  # Add this at the top with other imports
 def generateqraction(request):
-
-    department = request.GET["department"]
+    department = request.GET["department"].upper()  # Convert to uppercase
     year = request.GET["year"]
     sem = request.GET["sem"]
-    section =request.GET["section"]
-    subject = request.GET["subject"]
-    cdate=datetime.datetime.now()
+    section = request.GET["section"]
+    subject = request.GET["subject"].upper()  # Convert to uppercase
+    cdate = datetime.datetime.now()
 
-    strdt=str(cdate.day)+"-"+str(cdate.month)+"-"+str(cdate.year)+"-"+str(cdate.hour)+"-"+str(cdate.minute)
-
+    strdt = str(cdate.day)+"-"+str(cdate.month)+"-"+str(cdate.year)+"-"+str(cdate.hour)+"-"+str(cdate.minute)
     info = str(department+"_"+year+"_"+sem+"_"+section+"_"+subject+"_"+strdt)
-
-    path = 'C:/Users/sruja/OneDrive/Pictures/OneDrive/Desktop/Project/{fname}.png'.format(fname=info)
-
-    # Generate QR code
-
+    
     # Generate QR code
     url = pyqrcode.create(info)
-
-    # Create and save the png file naming "myqr.png"
-    url.png(path, scale=6)
-
-    response = FileResponse(open(path, 'rb'))
-    return response
+    
+    # Save QR code with absolute path
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    static_dir = os.path.join(base_dir, 'static', 'qrcodes')
+    
+    # Create directory if it doesn't exist
+    if not os.path.exists(static_dir):
+        os.makedirs(static_dir)
+    
+    qr_filename = f"{info}.png"
+    full_path = os.path.join(static_dir, qr_filename)
+    url.png(full_path, scale=6)
+    
+    context = {
+        'qr_path': f'/static/qrcodes/{qr_filename}',
+        'department': department,  # Will now be uppercase
+        'year': year,
+        'semester': sem,
+        'section': section,
+        'subject': subject,  # Will now be uppercase
+        'datetime': cdate.strftime("%d-%m-%Y %H:%M")
+    }
+    
+    return render(request, "displayqr.html", context)
 
 def viewattendanceaction(request):
 

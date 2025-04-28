@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Generated QR Code</title>
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #fddb92 10%, #d1fdff 100%);
+            --card-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--primary-gradient);
+        }
+
+        .qr-container {
+            background: var(--card-gradient);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .qr-image {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            width: fit-content;
+        }
+
+        .qr-image img {
+            display: block;
+            width: 250px;
+            height: 250px;
+            object-fit: contain;
+        }
+
+        .details {
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+
+        .details p {
+            margin: 0.5rem 0;
+            color: #333;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .details strong {
+            color: #0083B0;
+            font-weight: 700;
+        }
+
+        .details span {
+            font-weight: 700;
+        }
+
+        h1 {
+            color: #0083B0;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="qr-container">
+        <h1>QR Code Generated</h1>
+        <div class="qr-image">
+            <img src="{{ qr_path }}" alt="Generated QR Code">
+        </div>
+        <div class="details">
+            <p><strong>Department:</strong> <span>{{ department }}</span></p>
+            <p><strong>Year:</strong> <span>{{ year }}</span></p>
+            <p><strong>Semester:</strong> <span>{{ semester }}</span></p>
+            <p><strong>Section:</strong> <span>{{ section }}</span></p>
+            <p><strong>Subject:</strong> <span>{{ subject }}</span></p>
+            <p><strong>Generated on:</strong> <span>{{ datetime }}</span></p>
+        </div>
+    </div>
+</body>
+</html>
